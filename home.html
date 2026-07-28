@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home - Free Fire Accounts</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 1.5rem;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      transition: background 0.4s ease;
+    }
+    .navbar:hover { background: rgba(212, 163, 115, 0.15); }
+    .nav-link { color: #ccc; text-decoration: none; padding: 6px 14px; border-radius: 20px; }
+    .nav-link.active { color: #121417; background: #d4a373; font-weight: bold; }
+
+    body { padding-top: 100px; }
+
+    .items-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      max-width: 1200px;
+      width: 100%;
+      padding: 20px;
+    }
+
+    /* Glowing Account Cards */
+    .id-card {
+      width: 300px;
+      padding: 1.5rem;
+      border-radius: 25px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 15px rgba(212, 163, 115, 0.2);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .id-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 30px rgba(212, 163, 115, 0.5);
+    }
+
+    /* Circular image with glowing loop animation */
+    .id-card .circle-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      animation: glowLoop 4s linear infinite;
+    }
+
+    @keyframes glowLoop {
+      0% { border: 3px solid #ff3366; box-shadow: 0 0 15px rgba(255, 51, 102, 0.6); }
+      50% { border: 3px solid #00ffff; box-shadow: 0 0 15px rgba(0, 255, 255, 0.6); }
+      100% { border: 3px solid #ff3366; box-shadow: 0 0 15px rgba(255, 51, 102, 0.6); }
+    }
+
+    .id-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .id-card .price { color: #00ffff; font-size: 1.2rem; font-weight: bold; margin-bottom: 0.5rem; }
+    .id-card p { color: #aaa; font-size: 0.85rem; margin-bottom: 1.2rem; }
+
+    .buy-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 15px;
+      border: none;
+      background: linear-gradient(135deg, #bf953f, #fcf6ba, #aa771c);
+      color: #121417;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .buy-btn:hover { transform: scale(1.03); }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="home.html" class="nav-link active">Home</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+    <a href="about.html" class="nav-link">About Us</a>
+  </nav>
+
+  <div class="items-grid" id="accounts-container">
+    <p style="color: #aaa;">Loading available accounts...</p>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    // FIXME: Add your firebase config keys here
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const container = document.getElementById("accounts-container");
+
+    async function loadAccounts() {
+      const querySnapshot = await getDocs(collection(db, "ff_ids"));
+      container.innerHTML = "";
+
+      if (querySnapshot.empty) {
+        container.innerHTML = "<p style='color: #aaa;'>No accounts uploaded yet.</p>";
+        return;
+      }
+
+      querySnapshot.forEach((doc) => {
+        const item = doc.data();
+        
+        const cardHtml = `
+          <div class="id-card">
+            <img src="${item.image}" alt="${item.title}" class="circle-img">
+            <h3>${item.title}</h3>
+            <div class="price">$${item.price}</div>
+            <p>${item.description}</p>
+            <button class="buy-btn" onclick="buyNow('${item.title}', '${item.price}')">Buy Now</button>
+          </div>
+        `;
+        container.innerHTML += cardHtml;
+      });
+    }
+
+    window.buyNow = function(title, price) {
+      window.location.href = `payment.html?title=${encodeURIComponent(title)}&price=${encodeURIComponent(price)}`;
+    };
+
+    loadAccounts();
+  </script>
+</body>
+</html>

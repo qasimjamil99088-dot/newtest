@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Checkout</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .payment-card {
+      width: 400px;
+      padding: 2.5rem;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      color: #fff;
+      text-align: center;
+    }
+
+    .item-summary {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 1rem;
+      border-radius: 15px;
+      margin: 1.5rem 0;
+    }
+
+    .item-title { font-weight: bold; font-size: 1.1rem; }
+    .item-price { color: #00ffff; font-size: 1.4rem; font-weight: bold; margin-top: 5px; }
+
+    .pay-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 15px;
+      border: none;
+      background: #25d366; /* WhatsApp Green */
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .pay-btn:hover { transform: scale(1.02); }
+  </style>
+</head>
+<body>
+
+  <div class="payment-card">
+    <h1>Checkout 💳</h1>
+
+    <div class="item-summary">
+      <div id="selected-title" class="item-title">Loading...</div>
+      <div id="selected-price" class="item-price">$0</div>
+    </div>
+
+    <button id="confirm-pay-btn" class="pay-btn">Proceed to Pay via WhatsApp</button>
+  </div>
+
+  <script>
+    // Read URL Parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const title = urlParams.get('title') || "Selected Account";
+    const price = urlParams.get('price') || "0";
+
+    document.getElementById("selected-title").textContent = title;
+    document.getElementById("selected-price").textContent = "$" + price;
+
+    document.getElementById("confirm-pay-btn").addEventListener("click", () => {
+      // Replace with your Phone Number
+      const phoneNumber = "1234567890";
+      const message = `Hello! I would like to purchase the following Free Fire ID:\n\n*Account:* ${title}\n*Price:* $${price}`;
+      
+      window.location.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    });
+  </script>
+</body>
+</html>

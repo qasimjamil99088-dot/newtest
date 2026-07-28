@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Navigation Bar Styling */
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 1.5rem;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    /* Color change when hovering over the navbar */
+    .navbar:hover {
+      background: rgba(212, 163, 115, 0.15); /* Accent tint */
+      border-color: rgba(212, 163, 115, 0.4);
+      box-shadow: 0 10px 35px rgba(212, 163, 115, 0.25);
+    }
+
+    .nav-link {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+      transition: color 0.3s ease, background 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-link.active {
+      color: #121417;
+      background: var(--accent-color, #d4a373);
+      font-weight: 600;
+    }
+
+    /* Adjust page layout for fixed navbar */
+    body {
+      padding-top: 80px;
+    }
+
+    /* Specific styles for About page card */
+    .about-card {
+      width: 420px;
+      padding: 2.5rem;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      color: #fff;
+      text-align: center;
+    }
+
+    .about-card h1 {
+      font-size: 1.8rem;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+    }
+
+    .about-card p {
+      color: #aaa;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+
+    .highlight {
+      color: var(--accent-color, #d4a373);
+      font-weight: 600;
+    }
+    /* Circle Image with Pulsing/Color-Changing Glow */
+.img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  
+  margin: 0 auto 1.2rem auto;
+  display: block;
+  
+  /* Smooth color cycling animation */
+  animation: glowLoop 4s linear infinite;
+  transition: transform 0.3s ease;
+}
+
+.img:hover {
+  transform: scale(1.05);
+}
+
+/* Keyframe animation cycling between Red and Aqua */
+@keyframes glowLoop {
+  0% {
+    border: 3px solid #ff3366;
+    box-shadow: 0 0 15px rgba(255, 51, 102, 0.6), 0 0 30px rgba(255, 51, 102, 0.3);
+  }
+  50% {
+    border: 3px solid #00ffff;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.3);
+  }
+  100% {
+    border: 3px solid #ff3366;
+    box-shadow: 0 0 15px rgba(255, 51, 102, 0.6), 0 0 30px rgba(255, 51, 102, 0.3);
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="home.html" class="nav-link">Home</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+    <a href="about.html" class="nav-link active">About Us</a>
+  </nav>
+
+  <!-- About Card -->
+  <div class="about-card">
+    <h1>About Us ✨</h1>
+    <img src="mozan.png" class="img" alt="mozan">
+
+    <h2>Malik Mozan</h2><br>
+    <p>
+        We deal in any kind of free fire ids, with experienced staff and trusted login methods.
+    </p>
+    <p> 
+       Our goal is to provide <span class="highlight">Best Free Fire</span> id's to our customers, to win your trust and support.
+    </p>
+  </div>
+
+</body>
+</html>
